@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {{> head}}
+  <link rel="stylesheet" href="/public/css/styles.css">
+  <title>Chess Mate - Login</title>
+</head>
+<body>
+  <div class="container auth-container">
+    <h2 class="title">Login</h2>
+    {{#if message}}
+      <div class="error">{{ message }}</div>
+    {{/if}}
+    <form method="POST" action="login" class="auth-form">
+      <div class="form-group">
+        <label for="username">Username:</label>
+        <input type="text" name="username" placeholder="Enter your username" class="input-field">
+      </div>
+      <div class="form-group">
+        <label for="password">Password:</label> 
+        <input type="password" name="password" placeholder="Enter your password" class="input-field">
+      </div>
+      <div>
+        <input type="submit" value="Login" class="btn">
+      </div>
+    </form>
+  </div>
+</body>
+</html>

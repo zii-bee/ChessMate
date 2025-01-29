@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {{> head}}
+  <link rel="stylesheet" href="/public/css/styles.css">
+  <title>Chess Mate - History</title>
+</head>
+<body>
+  <main class="container history-container">
+    <h1 class="history-title">Your Completed Games</h1>
+
+    <form action="/history" method="GET" class="search-form">
+      <input type="text" name="opponent" placeholder="Search by opponent name" value="{{opponent}}">
+      <button type="submit" class="btn">Search</button>
+    </form>
+
+    {{#if games.length}}
+      <div class="history-grid">
+        {{#each games}}
+          <div class="history-card">
+            <div class="history-card-header">
+              <div class="player-info-section">
+                <div class="player-color-label white-label">White</div>
+                <div class="player-name">{{whiteUser.username}}</div>
+              </div>
+              <div class="vs">vs</div>
+              <div class="player-info-section">
+                <div class="player-color-label black-label">Black</div>
+                <div class="player-name">{{#if blackUser}}{{blackUser.username}}{{else}}Pending{{/if}}</div>
+              </div>
+            </div>
+            <div class="history-card-body">
+              <p class="game-result"><strong>Result:</strong> {{gameResult}}</p>
+              <p class="game-pgn"><strong>PGN:</strong> {{pgn}}</p>
+              <p class="game-date"><strong>Date:</strong> {{createdAt}}</p>
+            </div>
+          </div>
+        {{/each}}
+      </div>
+    {{else}}
+      <p class="no-history-message">No games found.</p>
+    {{/if}}
+  </main>
+</body>
+</html>

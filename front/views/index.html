@@ -1,0 +1,93 @@
+<html>
+<head>
+    {{> head}}
+    <link rel="stylesheet" href="../public/css/styles.css" />
+</head>
+<body> 
+    <main class="main-content container">
+        {{#if user}}
+            <div class="dashboard">
+                <h2 class="welcome-message">Welcome back, {{user.username}}!</h2>
+                <p class="instructions">Ready to make your next move?</p>
+                
+                <div class="game-actions">
+                    <h3>Start a New Game</h3>
+                    <button id="createGame" class="btn">Create game</button>
+                    <button id="joinGame" class="btn">Join game</button>
+                    <input type="text" id="codeInput" placeholder="Enter Joining Code" class="input-field">
+                    <div class="error" id="errorMessage"></div>
+                </div>
+
+                <div class="spectate-game">
+                    <h2>Spectate a Game</h2>
+                    <input type="text" id="spectateCodeInput" placeholder="Enter Game Code">
+                    <button id="spectateGameBtn" class="btn">Spectate</button>
+                    <div class="error" id="spectateErrorMessage"></div>
+                </div>
+                
+                <script>
+                    async function generateGameCode() {
+                        const response = await fetch('/game/create', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            }
+                        });
+                        
+                        const result = await response.json();
+                        console.log(result);
+                        if (result.code) {
+                            socket.emit('joinGame', result.code);
+                            window.location.replace('/game/white?code=' + result.code);
+                        } else {
+                            console.error(result.error || 'Error creating game');
+                            document.getElementById('errorMessage').textContent = result.error || 'Failed to create game.';
+                        }
+                    }
+
+                    document.getElementById('createGame').addEventListener('click', generateGameCode);
+                    document.getElementById('joinGame').addEventListener('click', function() {
+                        const code = document.getElementById('codeInput').value.trim();
+                        if (code) {
+                            window.location.replace('/game/black?code=' + code);
+                        } else {
+                            document.getElementById('errorMessage').textContent = 'Please enter a valid game code to join.';
+                        }
+                    });
+                    document.getElementById('spectateGameBtn').addEventListener('click', function() {
+                        const code = document.getElementById('spectateCodeInput').value.trim();
+                        if (code) {
+                            window.location.replace('/game/spectate?code=' + code);
+                        } else {
+                            alert('Please enter a valid code');
+                        }
+                    });
+
+                    const urlParams = new URLSearchParams(window.location.search);
+                    if (urlParams.get('error') === 'invalidCode') {
+                        document.getElementById('errorMessage').textContent = 'Invalid invite code.';
+                    }
+
+                    if (urlParams.get('error') === 'gameFull') {
+                        document.getElementById('errorMessage').textContent = 'The lobby you are trying to join is full.';
+                    }
+
+                    socket.on('error', function(message) {
+                        document.getElementById('errorMessage').textContent = message;
+                    });
+
+                    document.getElementById('logoutButton').addEventListener('click', function() {
+                        window.location.href = '/auth/logout';
+                    });
+                </script>
+            </div>
+        {{else}}
+            <div class="hero-section">
+                <h2 class="welcome-message">Welcome to Chess Mate!</h2>
+                <p class="instructions">Join our community and start your game.</p>
+                <a href="/auth" class="btn primary-btn">Start Mating</a>
+            </div>
+        {{/if}}
+    </main>
+</body>
+</html>

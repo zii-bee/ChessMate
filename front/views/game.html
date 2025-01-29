@@ -1,0 +1,86 @@
+<html>
+<head>
+    {{> head}}
+    <link rel="stylesheet" href="/public/css/styles.css">
+    <title>Chess Mate - Game</title>
+</head>
+<body>
+    <div class="container game-container">
+        <div class="game-info-section">
+            <h1 class="title">ChessMate</h1>
+            <div class="player-info">
+                <p><strong>You:</strong> <span id="theSelf">{{me}}</span></p>
+                {{#if isSpectator}}
+                  <p><strong>Players:</strong> <span id="thePlayers">{{other}}</span></p>
+                {{else}}
+                  <p><strong>Opponent:</strong> <span id="theOpponent">{{other}}</span></p>
+                {{/if}}
+            </div>
+            <div id="gameCodeDisplay" class="game-code-display">
+                <p>Game Code: <span id="gameCodeText"></span></p>
+            </div>
+            {{#if isSpectator}}
+            <div class="pgn-info">
+                <p><strong>PGN:</strong> <span id="pgn"></span></p>
+            </div>
+            {{else}}
+            <div class="status-info">
+                <p><strong>Status:</strong> <span id="status"></span></p>
+                <p><strong>PGN:</strong> <span id="pgn"></span></p>
+            </div>
+            {{/if}}
+           
+            {{#unless isSpectator}}
+            <div class="controls">
+                <button id="resignButton" class="btn resign-btn">Resign</button>
+            </div>
+            {{/unless}}
+            
+            <div class="spectators-info" id="spectatorsInfo" style="display:none;">
+                <p><strong>Spectators:</strong> <span id="spectatorsCount"></span></p>
+            </div>
+        </div>
+        <div class="board-container">
+            <div id="myBoard" class="board"></div>
+        </div>
+    </div>
+
+    <script>
+        let playerColor = '{{color}}';
+        let me = '{{me}}';
+        let other = '{{other}}';
+        console.log('Playing as ' + playerColor);
+        console.log(me + 'vs' + other);
+        
+        if (playerColor !== 'spectator') {
+            document.getElementById('theSelf').textContent = me;
+            document.getElementById('theOpponent').textContent = other;
+        }
+
+        const resignButton = document.getElementById('resignButton');
+        if (resignButton) {
+            resignButton.addEventListener('click', function() {
+                socket.emit('resign', { color: playerColor, name: me});
+            });
+        }
+
+        // if color is spectator, emit spectateGame event
+        if (playerColor === 'spectator') {
+            const urlParams = new URLSearchParams(window.location.search);
+            const code = urlParams.get('code');
+            const statusInfo = document.getElementById('status-info');
+            socket.emit('spectateGame', code);
+        }
+
+        socket.on('playerJoined', (data) => {
+            document.getElementById('gameCodeText').textContent = data.code;
+            if (data.playerColor == 'black') {
+                document.getElementById('theOpponent').textContent = data.opp;
+            }
+        });
+
+        
+    </script>
+    <script src="/public/js/index.js"></script>
+</body>
+</html>
