@@ -18,13 +18,13 @@ This is the main game creation/joining screen that is accessed via an authentica
 ### History Search Form3
 This form lets you search for a specific game based on the opponent's username, and filters the database displayed in "history".
 
-### [filter_playedGames](https://github.com/zii-bee/ChessMate/main/app.js#L207)
+### [filter_playedGames](https://github.com/zii-bee/ChessMate/blob/main/app.js#L207)
 A HOF that retrieves playedGames for a user from a database and filters by the opponent name as per search string entered in the field.
 
-### [Chess.js Constructor in index.js](https://github.com/zii-bee/ChessMate/main/front/public/js/index.js#L5)
+### [Chess.js Constructor in index.js](https://github.com/zii-bee/ChessMate/blob/main/front/public/js/index.js#L5)
 The constructor for the chess.js library's Chess instance.
 
-### [Models Folder (Game.js, User.js)](https://github.com/zii-bee/ChessMate/main/server/models)
+### [Models Folder (Game.js, User.js)](https://github.com/zii-bee/ChessMate/blob/main/server/models)
 Link to database models folder, containing User.js and Game.js.
 
 ## Optional Project Notes
