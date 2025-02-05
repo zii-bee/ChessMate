@@ -64,44 +64,45 @@ export const myIo = (io, games) => {
         socket.on('joinGame', async function(data) {
             currentCode = data;
             console.log('joining game', currentCode);
-
-            if (!games[currentCode]) {
-                games[currentCode] = {};
+        
+            // If games[currentCode] is missing or not an object, initialize it.
+            if (!games[currentCode] || typeof games[currentCode] !== 'object') {
+                games[currentCode] = { whiteUser: '', blackUser: '', spectators: 0 };
             }
-
+        
             const game = await Game.findOne({ code: currentCode }).populate('whiteUser blackUser');
-
+        
             if (!game) {
                 return socket.emit('error', 'Game not found');
             }
-
-            if (game.whiteUser) {
-                games[currentCode].whiteUser = game.whiteUser._id;
-            }
-
-            if (game.blackUser) {
-                games[currentCode].blackUser = game.blackUser._id;
-            }
-
+        
             socket.join(currentCode);
             io.to(currentCode).emit('gameCode', currentCode);
-
-           
-            if (game.whiteUser && game.blackUser && game.status === 'in-progress' && !games[currentCode].spectators) {
-                io.to(currentCode).emit('playerJoined', {playerColor: 'black', name: game.blackUser.username, code: currentCode, opp: game.whiteUser.username});
+        
+            if (game.whiteUser && game.blackUser && game.status === 'in-progress' && games[currentCode].spectators === 0) {
+                io.to(currentCode).emit('playerJoined', {
+                    playerColor: 'black',
+                    name: game.blackUser.username,
+                    code: currentCode,
+                    opp: game.whiteUser.username
+                });
             }
-
-            if (game.whiteUser && game.blackUser && game.status === 'waiting' && !games[currentCode].spectators) {
+        
+            if (game.whiteUser && game.blackUser && game.status === 'waiting' && games[currentCode].spectators === 0) {
                 game.status = 'in-progress';
                 await game.save();
                 io.to(currentCode).emit('startGame');
-                io.to(currentCode).emit('playerJoined', {playerColor: 'black', name: game.blackUser.username, code: currentCode, opp: game.whiteUser.username});
+                io.to(currentCode).emit('playerJoined', {
+                    playerColor: 'black',
+                    name: game.blackUser.username,
+                    code: currentCode,
+                    opp: game.whiteUser.username
+                });
             }
-
-            if (games[currentCode].spectators == 0) {
-                io.to(currentCode).emit('spectatorsCount', games[currentCode].spectators);
-            }
-
+            
+            console.log(games[currentCode]);
+            console.log(currentCode);
+            io.to(currentCode).emit('spectatorsCount', games[currentCode].spectators);
         });
 
         socket.on('resign', async function(data) {
@@ -135,7 +136,7 @@ export const myIo = (io, games) => {
                     await game.save();
                 }
                 io.to(currentCode).emit('gameOverDisconnect');
-                delete games[currentCode];
+                // delete games[currentCode];
             }
         });
     });

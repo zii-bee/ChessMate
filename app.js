@@ -27,7 +27,7 @@ import Game from'./server/models/Game.js';
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
-const port = process.env.NYUPORT || process.env.PORT;
+const port = process.env.PORT;
 
 server.listen(port);
 

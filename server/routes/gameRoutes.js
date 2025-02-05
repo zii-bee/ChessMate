@@ -29,7 +29,9 @@ export const gameRoutes = (games) => {
             });
     
             await newGame.save();
-            games[code] = {};
+            if (!games[code]){
+                games[code] = {whiteUser: '', blackUser: '', spectators: 0};
+            }
     
             res.json({ code });
         } catch (error) {
