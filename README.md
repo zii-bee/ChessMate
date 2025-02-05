@@ -1,42 +1,105 @@
-# cHessMate
+# ChessMate
 
-## Overview
+ChessMate is a real-time chess web application that lets users create, join, and spectate games online. Built using Node.js, Express, Socket.IO, and MongoDB, it offers a seamless, interactive experience with live move updates, user authentication, and game history tracking.
 
-chessMate is a real-time chess web app that allows you to spectate games by joining said lobbies. It also keeps a log of the games you play against other players and you can access your personal history. Given the database and the way the application has been structured, the website is very scalable in terms of potential features that can be added to it (eg: ranking system, a set number of AI-powered (stockfish API) moves for each player to help in non-obvious/tricky situations to add another dimension to the strategic thinking).
+![Authentication Page](documentation/doc1.png)  
+*The auth page showing login, register, and Google sign-in.*
 
-### NetID: hm2957
-### Name: Haad Mehboob
+## Features
 
-### Auth Form1
-This is a collection of possible actions as an unauthenticated user. On this page, three options are selectable {Login, GoogleSign with Passport, Regiser}. {Pre-existing accounts to check Login -> (123412345, 123412345), (haadhaad1, haadhaad1)}
-The Google sign only works with NYU Login right now. The current browser session needs to be logged in as NYU, and then the authentication goes through {avoiding paying for API Key [OAuth] because NYU org}.
-The register form allows you to create an account. There are no particularly robust measures besides salting/hashing the password in the database. No email verification. {username.length >= 5 , password.length >= 7 suggested}
+- **Create & Join Games:** Quickly generate unique game codes and join existing games as white, black, or spectator.
+- **Real-Time Gameplay:** Leverages Socket.IO for live move updates and game state synchronization.
+- **Spectator Mode:** Watch games in progress with real-time updates.
+- **User Authentication:** Secure login and registration via Passport.js and Google OAuth.
+- **Game History:** View completed games and results.
+- **Session Management:** Uses express-session with MongoDB to manage user sessions.
 
-### Game Creation Form2
-This is the main game creation/joining screen that is accessed via an authenticated session. Here, a player can either "Create Game", which generates a unique 4-letter code linked to the lobby, or "Join Game" by entering said code. The "Create Game" is defaulted to create the user as 'white' in the game (incentive for creating the game :p). The page also contains a "Spectate Game" section where you can enter the code for an existing game and it'll let you join the spectating session. When you join as a spectator, the players and spectators in the lobby can see a counter of "Spectator Count = n" given you're the n-th spectator, which is hidden in the absence of spectators. If a spectator joins the game later {moves have already been made}, the spectator will retrieve the Game object from the cloud which has a real-time update of the move sequence in PGN format. This string is used to set up the initial board with the Chessboard.js library so all parties viewing the game in a room are synchronized with the Atlas database. Once in a lobby, the spectator cannot interact with the pieces but only see them moving as players play their turns (as expected).
+![Home Page After Login](documentation/home_login.png)  
+*The home page after login where you can create, join, or spectate games.*
 
-### History Search Form3
-This form lets you search for a specific game based on the opponent's username, and filters the database displayed in "history".
+## Technologies Used
 
-### [filter_playedGames](https://github.com/zii-bee/ChessMate/blob/main/app.js#L207)
-A HOF that retrieves playedGames for a user from a database and filters by the opponent name as per search string entered in the field.
+- **Backend:** Node.js, Express.js
+- **Real-Time Communication:** Socket.IO
+- **Database:** MongoDB (with Mongoose)
+- **Templating Engine:** Express Handlebars
+- **Authentication:** Passport.js, Google OAuth 2.0
+- **Session Store:** connect-mongo
 
-### [Chess.js Constructor in index.js](https://github.com/zii-bee/ChessMate/blob/main/front/public/js/index.js#L5)
-The constructor for the chess.js library's Chess instance.
+## Installation
 
-### [Models Folder (Game.js, User.js)](https://github.com/zii-bee/ChessMate/blob/main/server/models)
-Link to database models folder, containing User.js and Game.js.
+### Prerequisites
 
-## Optional Project Notes
-- The application uses Socket.io for real-time game updates.
-- The database is hosted on MongoDB Atlas.
-- Google login requires the user’s browser session to be authenticated via NYU work Google account.
-- The game auto-promotes a pawn to a queen for simplicity.
+- [Node.js](https://nodejs.org/en/download/) (v14 or later recommended)
+- [npm](https://www.npmjs.com/get-npm) (comes with Node.js)
+- A running instance of [MongoDB](https://www.mongodb.com/) or a MongoDB Atlas account
+- A Google CLient ID for OAuth2.0
 
+### Setup
 
-## Attributions
+1. **Clone the Repository:**
 
-1. [Passport.js authentication docs](http://passportjs.org/docs) - Used for OAuth logic in `server/app.js`
-2. [Chess.js](https://github.com/jhlywa/chess.js/blob/master/README.md) - Used to manage game logic/state.
-3. [Chessboard.js](https://chessboardjs.com/docs) - Used to visualize the chessboard in `front/public/js/index.js`.
+   ```bash
+   git clone https://github.com/zii-bee/ChessMate.git
+   cd ChessMate
+   ```
+2. ** Install Dependencies:**
+   ```bash
+   npm install
+   ```
+3. **Configure Environment Variables:**
+   Create a .env file in the root directory and add the following variables (replace placeholder values with yours):
+   ```env
+   DSN=your_mongodb_connection_string
+   SESSION_SECRET=your_session_secret
+   PORT=3000
+   GOOGLE_CLIENT_ID=your_google_client_id
+   GOOGLE_CLIENT_SECRET=your_google_client_secret
+   APPURL=http://localhost:3000
+   ```
+4. **Start the Application:**
+   In the root directory, where you see app.js as a file:
+   ```bash
+   node app.js
+   ```
+   Your application will run at HTTP://localhost:3000, or as you specify the port
+
+## Usage
+
+### Creating a Game
+Log in and navigate to the game creation page. A unique game code is generated, and your game is set to "waiting" until an opponent joins.
+
+### Joining a Game
+Enter the provided game code to join as a player (white or black) or spectate if you only wish to watch.
+
+### Gameplay
+Enjoy real-time chess gameplay. Moves, game state, and spectator counts are synchronized using Socket.IO.
+
+![In-Game Screen](documentation/ingame1.png)  
+*In-game screen between two players.*
+
+### Game History
+After completing games, you can track your gameplay history, view past results, and analyze your performance.
+
+![Game History](documentation/history_tracking.png)  
+*Page showing your game history as a player.*
+
+## Contributing
+
+Contributions are welcome! If you have suggestions, bug fixes, or new features, please follow these steps:
+
+1. **Fork the repository.**
+2. **Create a new branch:**
+
+   ```bash
+   git checkout -b feature/your-feature
+   ```
+3. **Commit your changes:**
+   ```bash
+   git commit -am 'Add new feature'
+   ```
+4. **Push to your branch**
+   ```bash
+   git push origin feature/your-feature
+   ```
 
