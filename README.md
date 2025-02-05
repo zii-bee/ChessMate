@@ -2,9 +2,6 @@
 
 ChessMate is a real-time chess web application that lets users create, join, and spectate games online. Built using Node.js, Express, Socket.IO, and MongoDB, it offers a seamless, interactive experience with live move updates, user authentication, and game history tracking.
 
-![Authentication Page](documentation/doc1.png)  
-*The auth page showing login, register, and Google sign-in.*
-
 ## Features
 
 - **Create & Join Games:** Quickly generate unique game codes and join existing games as white, black, or spectator.
@@ -14,8 +11,6 @@ ChessMate is a real-time chess web application that lets users create, join, and
 - **Game History:** View completed games and results.
 - **Session Management:** Uses express-session with MongoDB to manage user sessions.
 
-![Home Page After Login](documentation/home_login.png)  
-*The home page after login where you can create, join, or spectate games.*
 
 ## Technologies Used
 
@@ -66,11 +61,18 @@ ChessMate is a real-time chess web application that lets users create, join, and
 
 ## Usage
 
+### Authentication
+Log in and retain your session and game history with your account. 
+![Authentication Page](documentation/doc1.png)  
+*The auth page showing login, register, and Google sign-in.*
+
 ### Creating a Game
 Log in and navigate to the game creation page. A unique game code is generated, and your game is set to "waiting" until an opponent joins.
 
 ### Joining a Game
 Enter the provided game code to join as a player (white or black) or spectate if you only wish to watch.
+![Home Page After Login](documentation/home_login.png) 
+*The home page after login where you can create, join, or spectate games.*
 
 ### Gameplay
 Enjoy real-time chess gameplay. Moves, game state, and spectator counts are synchronized using Socket.IO.
