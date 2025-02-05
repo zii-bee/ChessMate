@@ -1,0 +1,440 @@
+/* GLOBAL RESET & BASE STYLES */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend, button,
+table, caption, tbody, tfoot, thead, tr, th, td {
+  margin: 0; 
+  padding: 0; 
+  border: 0; 
+  font-size: 100%; 
+  vertical-align: baseline; 
+  background: transparent; 
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+  color: #333;
+  background: #fafafa;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; 
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.3s;
+}
+
+a:hover {
+  color: #d4af37;
+}
+
+ul {
+  list-style: none;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.header {
+  background: #1e1e1e;
+  color: #fff;
+  padding: 10px 0;
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+}
+
+.logo-img {
+  height: 50px;
+  margin-right: 10px;
+}
+
+.logo-text {
+  font-weight: 700;
+  font-size: 1.5em;
+}
+
+.nav ul {
+  display: flex;
+  gap: 20px;
+}
+
+.nav ul li a {
+  color: #fff;
+  font-weight: 500;
+  padding: 8px;
+  border-radius: 4px;
+  transition: background 0.3s;
+}
+
+.nav ul li a:hover {
+  background: #333;
+  color: #d4af37;
+}
+
+.footer {
+  background: #1e1e1e;
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
+  margin-top: auto;
+}
+
+.footer-container p {
+  margin-bottom: 10px;
+  font-size: 0.9em;
+}
+
+.footer-links a {
+  color: #d4af37;
+  margin: 0 5px;
+  font-weight: 500;
+}
+
+.separator {
+  color: #fff;
+  margin: 0 5px;
+}
+
+.btn {
+  display: inline-block;
+  background: #333;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  border-radius: 4px;
+  transition: background 0.3s, transform 0.2s;
+  margin: 5px 0;
+}
+
+.btn:hover {
+  background: #d4af37;
+  color: #000;
+  transform: translateY(-1px);
+}
+
+.primary-btn {
+  background: #d4af37;
+  color: #000;
+}
+
+.primary-btn:hover {
+  background: #333;
+  color: #fff;
+}
+
+.logout-btn {
+  background: #555;
+  margin-top: 20px;
+}
+.logout-btn:hover {
+  background: #d4af37;
+  color: #000;
+}
+
+.resign-btn {
+  background: #c00;
+}
+.resign-btn:hover {
+  background: #a00;
+}
+
+.input-field {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 220px;
+  margin: 5px 0;
+  font-size: 0.95em;
+}
+
+.title {
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.welcome-message {
+  font-size: 2em;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.instructions {
+  margin-bottom: 30px;
+  font-size: 1.1em;
+  color: #666;
+}
+
+h3 {
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.main-content {
+  padding: 40px 0;
+  text-align: center;
+}
+
+.hero-section {
+  background: #fff;
+  padding: 60px 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.dashboard {
+  text-align: center;
+}
+
+.game-actions {
+  margin: 40px 0;
+}
+
+.error {
+  color: red;
+  margin-top: 10px;
+  font-size: 0.9em;
+}
+
+.auth-container {
+  text-align: center;
+  padding: 60px 0;
+}
+
+.auth-title {
+  margin-bottom: 40px;
+  font-size: 2em;
+  font-weight: 600;
+}
+
+.auth-content .auth-btn,
+.auth-content .google-btn {
+  display: block;
+  margin: 10px auto;
+  width: 220px;
+  text-align: center;
+}
+
+.google-btn {
+  background: #fff;
+  color: #333;
+  border: 2px solid #ccc;
+}
+
+.google-btn:hover {
+  background: #d4af37;
+  color: #000;
+  border-color: #d4af37;
+}
+
+.auth-form {
+  background: #fff;
+  padding: 40px 20px;
+  border-radius: 8px;
+  max-width: 400px;
+  margin: 0 auto;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  text-align: left;
+}
+
+.auth-form .form-group {
+  margin-bottom: 20px;
+}
+
+.auth-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+.game-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  padding-top: 40px;
+}
+
+.game-info-section {
+  flex: 1 1 300px;
+}
+
+.board-container {
+  flex: 1 1 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 300px;
+}
+
+.player-info p,
+.status-info p {
+  margin-bottom: 8px;
+}
+
+.spectators-info {
+  margin-top: 20px;
+  font-size: 1.1em;
+  color: #333;
+  font-weight: 600;
+}
+
+.game-code-display {
+  margin: 20px 0;
+  font-size: 1.1em;
+}
+
+.board {
+  margin: 20px auto;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 700px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .header-container, .game-container {
+    flex-direction: column;
+  }
+
+  .nav ul {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .auth-form {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+.history-container {
+  padding: 40px 0;
+  text-align: center;
+}
+
+.history-title {
+  font-size: 2em;
+  font-weight: 600;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.no-history-message {
+  font-size: 1.2em;
+  color: #666;
+}
+
+.history-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.history-card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  padding: 20px;
+  text-align: left;
+  transition: transform 0.2s;
+}
+
+.history-card:hover {
+  transform: translateY(-2px);
+}
+
+.history-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.player-info-section {
+  text-align: center;
+}
+
+.player-color-label {
+  font-size: 0.8em;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin-bottom: 5px;
+  display: inline-block;
+}
+
+.white-label {
+  background: #f9f9f9;
+  color: #333;
+  border: 1px solid #ddd;
+}
+
+.black-label {
+  background: #333;
+  color: #fff;
+}
+
+.player-name {
+  font-size: 1.1em;
+  font-weight: 600;
+  color: #333;
+}
+
+.vs {
+  font-weight: 700;
+  font-size: 1.2em;
+  margin: 0 10px;
+  color: #555;
+}
+
+.history-card-body p {
+  margin-bottom: 10px;
+  font-size: 0.95em;
+  color: #555;
+}
+
+.game-result, .game-pgn, .game-date {
+  margin: 5px 0;
+}
+
+.game-result strong, 
+.game-pgn strong, 
+.game-date strong {
+  font-weight: 600;
+  color: #333;
+}
+
+.hidden {
+  display: none;
+}

@@ -1,0 +1,21 @@
+<header class="header">
+    <div class="container header-container">
+      <div class="logo-section">
+        <img src="/public/img/logo/logo.png" alt="Chess Mate Logo" class="logo-img">
+        <span class="logo-text">ChessMate</span>
+      </div>
+      <nav class="nav">
+        <ul>
+          {{#if user}}
+            <li><a href="/game">Game</a></li>
+            <li><a href="/history">History</a></li>
+            <li><a href="/logout">Log Out</a></li>
+          {{else}}
+            <li><a href="/auth/login">Log In</a></li>
+            <li><a href="/auth/register">Register</a></li>
+          {{/if}}
+        </ul>
+      </nav>
+    </div>
+  </header>
+  
